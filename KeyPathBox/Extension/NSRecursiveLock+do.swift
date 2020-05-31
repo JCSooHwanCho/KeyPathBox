@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension NSRecursiveLock {
+extension NSLocking {
     func `do`(_ action: ()->Void) {
         self.lock()
         action()
