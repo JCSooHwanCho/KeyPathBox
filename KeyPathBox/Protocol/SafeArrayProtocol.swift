@@ -11,5 +11,5 @@ import Foundation
 protocol SafeArrayProtocol {
     associatedtype Element
 
-    subscript(_ index: Int) -> Self.Element? { get set }
+    subscript(maybeInBound index: Int) -> Self.Element? { get set }
 }

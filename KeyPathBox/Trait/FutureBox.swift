@@ -8,14 +8,12 @@
 
 import Foundation
 
-final class FutureBox<KeyPathBox: SafeArrayProtocol, Failure: Error>: KeyPathBoxProtocol {
-    typealias Element = KeyPathBox.Element
-
-    private var result: Result<KeyPathBox,Failure>?
+final class FutureBox<Content, Failure: Error>: KeyPathBoxProtocol {
+    private var result: Result<Content,Failure>?
     private let lock = NSRecursiveLock()
-    private var watingQueue: [(Result<KeyPathBox,Failure>) -> Void] = []
+    private var watingQueue: [(Result<Content,Failure>) -> Void] = []
 
-    init (_ wantToAccomplish: @escaping (@escaping (Result<KeyPathBox, Failure>) -> Void) -> Void) {
+    init (_ wantToAccomplish: @escaping (@escaping (Result<Content, Failure>) -> Void) -> Void) {
         wantToAccomplish { result in
             self.lock.do {
                 guard self.result == nil else { return }
@@ -30,7 +28,7 @@ final class FutureBox<KeyPathBox: SafeArrayProtocol, Failure: Error>: KeyPathBox
         }
     }
 
-    func initialize(_ complete: @escaping (Result<KeyPathBox, Failure>) -> Void) {
+    func initialize(_ complete: @escaping (Result<Content, Failure>) -> Void) {
         if let result = self.result {
             complete(result)
             return
@@ -40,35 +38,8 @@ final class FutureBox<KeyPathBox: SafeArrayProtocol, Failure: Error>: KeyPathBox
             self.watingQueue.append(complete)
         }
     }
-}
 
-extension FutureBox: SafeArrayProtocol {
-    subscript(index: Int) -> Element? {
-        get {
-            guard let result = self.result else { return nil }
-
-            switch result {
-            case let .success(box):
-                return box[index]
-            case .failure:
-                return nil
-            }
-        }
-        set {
-            guard let result = self.result else { return }
-
-             switch result {
-             case var .success(box):
-                box[index] = newValue
-                self.result = .success(box)
-             case .failure:
-                 return
-             }
-        }
-    }
-
-
-    subscript<Value>(innerKeyPath keyPath: KeyPath<KeyPathBox, Value>) -> Value? {
+    subscript<Value>(innerKeyPath keyPath: KeyPath<Content, Value>) -> Value? {
         guard let result = self.result else { return nil }
 
         switch result {
@@ -79,7 +50,7 @@ extension FutureBox: SafeArrayProtocol {
         }
     }
 
-    subscript<Value>(innerKeyPath keyPath: WritableKeyPath<KeyPathBox, Value>) -> Value? {
+    subscript<Value>(innerKeyPath keyPath: WritableKeyPath<Content, Value>) -> Value? {
         get {
             guard let result = self.result else { return nil }
 
@@ -97,6 +68,32 @@ extension FutureBox: SafeArrayProtocol {
              switch result {
              case var .success(box):
                 box[keyPath: keyPath] = newValue
+                self.result = .success(box)
+             case .failure:
+                 return
+             }
+        }
+    }
+}
+
+extension FutureBox: SafeArrayProtocol where Content: SafeArrayProtocol {
+    subscript(maybeInBound index: Int) -> Content.Element? {
+        get {
+            guard let result = self.result else { return nil }
+
+            switch result {
+            case let .success(box):
+                return box[maybeInBound: index]
+            case .failure:
+                return nil
+            }
+        }
+        set {
+            guard let result = self.result else { return }
+
+             switch result {
+             case var .success(box):
+                box[maybeInBound: index] = newValue
                 self.result = .success(box)
              case .failure:
                  return

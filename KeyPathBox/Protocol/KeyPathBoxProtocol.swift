@@ -10,8 +10,8 @@ import Foundation
 
 
 protocol KeyPathBoxProtocol {
-    associatedtype KeyPathBox: SafeArrayProtocol
+    associatedtype Content
 
-    subscript<Value>(innerKeyPath keyPath: WritableKeyPath<KeyPathBox, Value>) -> Value? { get set }
-    subscript<Value>(innerKeyPath keyPath: KeyPath<KeyPathBox, Value>) -> Value? { get }
+    subscript<Value>(innerKeyPath keyPath: WritableKeyPath<Content, Value>) -> Value? { get set }
+    subscript<Value>(innerKeyPath keyPath: KeyPath<Content, Value>) -> Value? { get }
 }

@@ -9,7 +9,7 @@
 @testable import KeyPathBox
 
 struct TestBox: SafeArrayProtocol, Equatable {
-    subscript(index: Int) -> Int? {
+    subscript(maybeInBound index: Int) -> Int? {
         get {
             if index == 0 {
                 return one
@@ -49,7 +49,7 @@ struct TestBox: SafeArrayProtocol, Equatable {
 }
 
 struct TestOptionalBox: SafeArrayProtocol {
-    subscript(index: Int) -> Int?? {
+    subscript(maybeInBound index: Int) -> Int?? {
         get {
             if index == 0 {
                 return one

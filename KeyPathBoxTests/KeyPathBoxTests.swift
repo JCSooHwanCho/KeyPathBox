@@ -16,9 +16,9 @@ class KeyPathBoxTests: XCTestCase {
             complete(.success(TestBox()))
         }
 
-        XCTAssertTrue(futureBox[0] == 1)
-        XCTAssertTrue(futureBox[1] == 2)
-        XCTAssertTrue(futureBox[2] == 3)
+        XCTAssertTrue(futureBox[maybeInBound: 0] == 1)
+        XCTAssertTrue(futureBox[maybeInBound: 1] == 2)
+        XCTAssertTrue(futureBox[maybeInBound: 2] == 3)
         XCTAssertTrue(futureBox[innerKeyPath: \.immutable] == "immutable")
     }
 
@@ -27,9 +27,9 @@ class KeyPathBoxTests: XCTestCase {
             complete(.failure(KeyPathBoxTestError.initializingError))
         }
 
-        XCTAssertTrue(futureBox[0] == nil)
-        XCTAssertTrue(futureBox[1] == nil)
-        XCTAssertTrue(futureBox[2] == nil)
+        XCTAssertTrue(futureBox[maybeInBound: 0] == nil)
+        XCTAssertTrue(futureBox[maybeInBound: 1] == nil)
+        XCTAssertTrue(futureBox[maybeInBound: 2] == nil)
         XCTAssertTrue(futureBox[innerKeyPath: \.immutable] == nil)
     }
 
@@ -39,11 +39,11 @@ class KeyPathBoxTests: XCTestCase {
             complete(.success(TestBox()))
         }
 
-        futureBox[1][keyPath: \.self] = 4
+        futureBox[maybeInBound: 1][keyPath: \.self] = 4
         futureBox[innerKeyPath: \.one] = 5
 
         XCTAssertTrue(futureBox[innerKeyPath: \.one] == 5)
-        XCTAssertTrue(futureBox[1][keyPath: \.self] == 4)
+        XCTAssertTrue(futureBox[maybeInBound: 1][keyPath: \.self] == 4)
     }
 
     func testValueChangeFailCausedInitializingFail() throws {
@@ -51,11 +51,11 @@ class KeyPathBoxTests: XCTestCase {
             complete(.failure(KeyPathBoxTestError.initializingError))
         }
 
-        futureBox[1][keyPath: \.self] = 1
+        futureBox[maybeInBound: 1][keyPath: \.self] = 1
         futureBox[innerKeyPath: \.one] = 2
 
         XCTAssertTrue(futureBox[innerKeyPath: \.one] == nil)
-        XCTAssertTrue(futureBox[1][keyPath: \.self] == nil)
+        XCTAssertTrue(futureBox[maybeInBound: 1][keyPath: \.self] == nil)
     }
 
     func testValueChangeFailCausedOutOfRange() throws {
@@ -63,9 +63,9 @@ class KeyPathBoxTests: XCTestCase {
             complete(.success(TestBox()))
         }
 
-        futureBox[1][keyPath: \.self] = nil
+        futureBox[maybeInBound: 1][keyPath: \.self] = nil
 
-        XCTAssertFalse(futureBox[1][keyPath: \.self] == nil)
+        XCTAssertFalse(futureBox[maybeInBound: 1][keyPath: \.self] == nil)
     }
 
     func testOptionalBoxChangeSuccess() throws {
@@ -73,9 +73,9 @@ class KeyPathBoxTests: XCTestCase {
             complete(.success(TestBox()))
         }
 
-        futureBox[1][keyPath: \.self] = 4
+        futureBox[maybeInBound: 1][keyPath: \.self] = 4
 
-        XCTAssertTrue(futureBox[1][keyPath: \.self] == Optional(4))
+        XCTAssertTrue(futureBox[maybeInBound: 1][keyPath: \.self] == Optional(4))
     }
 
     func testOptionalBoxChangeFail() throws {
@@ -83,9 +83,9 @@ class KeyPathBoxTests: XCTestCase {
             complete(.success(TestBox()))
         }
 
-        futureBox[1][keyPath: \.self] = nil
+        futureBox[maybeInBound: 1][keyPath: \.self] = nil
 
-        XCTAssertFalse(futureBox[1][keyPath: \.self] == nil)
+        XCTAssertFalse(futureBox[maybeInBound: 1][keyPath: \.self] == nil)
     }
 
     func testBoxChangeIndexOutOfRange() throws {
@@ -95,7 +95,7 @@ class KeyPathBoxTests: XCTestCase {
 
         let originalBox = futureBox[innerKeyPath: \.self]
 
-        futureBox[4][keyPath: \.self] = 4
+        futureBox[maybeInBound: 4][keyPath: \.self] = 4
 
         XCTAssertTrue(futureBox[innerKeyPath: \.self] == originalBox)
     }
@@ -170,9 +170,9 @@ class KeyPathBoxTests: XCTestCase {
         }
 
         XCTAssertTrue(futureBox[innerKeyPath: \.self] == nil)
-        XCTAssertTrue(futureBox[0] == nil)
-        XCTAssertTrue(futureBox[1] == nil)
-        XCTAssertTrue(futureBox[2] == nil)
+        XCTAssertTrue(futureBox[maybeInBound: 0] == nil)
+        XCTAssertTrue(futureBox[maybeInBound: 1] == nil)
+        XCTAssertTrue(futureBox[maybeInBound: 2] == nil)
         XCTAssertTrue(futureBox[innerKeyPath: \.immutable] == nil)
     }
 
@@ -181,9 +181,9 @@ class KeyPathBoxTests: XCTestCase {
 
         }
 
-        futureBox[1][keyPath: \.self] = 4
+        futureBox[maybeInBound: 1][keyPath: \.self] = 4
 
         XCTAssertTrue(futureBox[innerKeyPath: \.self] == nil)
-        XCTAssertTrue(futureBox[1] == nil)
+        XCTAssertTrue(futureBox[maybeInBound: 1] == nil)
     }
 }
