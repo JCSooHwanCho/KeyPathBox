@@ -10,6 +10,13 @@
 		4233931A248346A00014F510 /* KeyPathBox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42339310248346A00014F510 /* KeyPathBox.framework */; };
 		4233931F248346A00014F510 /* KeyPathBoxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4233931E248346A00014F510 /* KeyPathBoxTests.swift */; };
 		42339321248346A10014F510 /* KeyPathBox.h in Headers */ = {isa = PBXBuildFile; fileRef = 42339313248346A00014F510 /* KeyPathBox.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42339331248346F90014F510 /* SafeArrayProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42339330248346F90014F510 /* SafeArrayProtocol.swift */; };
+		42339334248347240014F510 /* KeyPathBoxProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42339333248347240014F510 /* KeyPathBoxProtocol.swift */; };
+		423393372483475E0014F510 /* FutureBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423393362483475E0014F510 /* FutureBox.swift */; };
+		4233933A248347B60014F510 /* NSRecursiveLock+do.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42339339248347B60014F510 /* NSRecursiveLock+do.swift */; };
+		4233933C2483ED050014F510 /* TestBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4233933B2483ED050014F510 /* TestBox.swift */; };
+		4233933E2483ED720014F510 /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4233933D2483ED720014F510 /* TestError.swift */; };
+		423393402483F2D60014F510 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 4233933F2483F2D60014F510 /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +36,13 @@
 		42339319248346A00014F510 /* KeyPathBoxTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KeyPathBoxTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4233931E248346A00014F510 /* KeyPathBoxTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPathBoxTests.swift; sourceTree = "<group>"; };
 		42339320248346A10014F510 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		42339330248346F90014F510 /* SafeArrayProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeArrayProtocol.swift; sourceTree = "<group>"; };
+		42339333248347240014F510 /* KeyPathBoxProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPathBoxProtocol.swift; sourceTree = "<group>"; };
+		423393362483475E0014F510 /* FutureBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureBox.swift; sourceTree = "<group>"; };
+		42339339248347B60014F510 /* NSRecursiveLock+do.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSRecursiveLock+do.swift"; sourceTree = "<group>"; };
+		4233933B2483ED050014F510 /* TestBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestBox.swift; sourceTree = "<group>"; };
+		4233933D2483ED720014F510 /* TestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
+		4233933F2483F2D60014F510 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +67,7 @@
 		42339306248346A00014F510 = {
 			isa = PBXGroup;
 			children = (
+				4233933F2483F2D60014F510 /* .gitignore */,
 				42339312248346A00014F510 /* KeyPathBox */,
 				4233931D248346A00014F510 /* KeyPathBoxTests */,
 				42339311248346A00014F510 /* Products */,
@@ -71,6 +86,9 @@
 		42339312248346A00014F510 /* KeyPathBox */ = {
 			isa = PBXGroup;
 			children = (
+				423393382483477B0014F510 /* Extension */,
+				42339335248347380014F510 /* Trait */,
+				423393322483470A0014F510 /* Protocol */,
 				42339313248346A00014F510 /* KeyPathBox.h */,
 				42339314248346A00014F510 /* Info.plist */,
 			);
@@ -81,9 +99,36 @@
 			isa = PBXGroup;
 			children = (
 				4233931E248346A00014F510 /* KeyPathBoxTests.swift */,
+				4233933B2483ED050014F510 /* TestBox.swift */,
 				42339320248346A10014F510 /* Info.plist */,
+				4233933D2483ED720014F510 /* TestError.swift */,
 			);
 			path = KeyPathBoxTests;
+			sourceTree = "<group>";
+		};
+		423393322483470A0014F510 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				42339330248346F90014F510 /* SafeArrayProtocol.swift */,
+				42339333248347240014F510 /* KeyPathBoxProtocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		42339335248347380014F510 /* Trait */ = {
+			isa = PBXGroup;
+			children = (
+				423393362483475E0014F510 /* FutureBox.swift */,
+			);
+			path = Trait;
+			sourceTree = "<group>";
+		};
+		423393382483477B0014F510 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				42339339248347B60014F510 /* NSRecursiveLock+do.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,6 +193,7 @@
 				TargetAttributes = {
 					4233930F248346A00014F510 = {
 						CreatedOnToolsVersion = 11.5;
+						LastSwiftMigration = 1150;
 					};
 					42339318248346A00014F510 = {
 						CreatedOnToolsVersion = 11.5;
@@ -178,6 +224,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				423393402483F2D60014F510 /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,6 +242,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				423393372483475E0014F510 /* FutureBox.swift in Sources */,
+				42339334248347240014F510 /* KeyPathBoxProtocol.swift in Sources */,
+				42339331248346F90014F510 /* SafeArrayProtocol.swift in Sources */,
+				4233933A248347B60014F510 /* NSRecursiveLock+do.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,7 +253,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4233933E2483ED720014F510 /* TestError.swift in Sources */,
 				4233931F248346A00014F510 /* KeyPathBoxTests.swift in Sources */,
+				4233933C2483ED050014F510 /* TestBox.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,7 +321,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -325,7 +378,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -340,6 +393,7 @@
 		42339325248346A10014F510 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = TNJ2M3BZTY;
@@ -356,6 +410,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.JCSooHwanCho.KeyPathBox;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -364,6 +420,7 @@
 		42339326248346A10014F510 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = TNJ2M3BZTY;
@@ -380,6 +437,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.JCSooHwanCho.KeyPathBox;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -388,6 +446,7 @@
 		42339328248346A10014F510 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TNJ2M3BZTY;
 				INFOPLIST_FILE = KeyPathBoxTests/Info.plist;
@@ -406,6 +465,7 @@
 		42339329248346A10014F510 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TNJ2M3BZTY;
 				INFOPLIST_FILE = KeyPathBoxTests/Info.plist;
