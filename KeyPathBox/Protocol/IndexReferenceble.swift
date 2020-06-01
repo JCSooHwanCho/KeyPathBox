@@ -8,8 +8,8 @@
 
 import Foundation
 
-protocol SafeArrayProtocol {
+protocol IndexReferenceble {
     associatedtype Element
-
-    subscript(maybeInBound index: Int) -> Self.Element? { get set }
+    associatedtype Index
+    subscript(maybeInBound index: Index) -> Self.Element? { get set }
 }

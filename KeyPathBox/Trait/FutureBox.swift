@@ -15,7 +15,7 @@ final class FutureBox<Content, Failure: Error>: KeyPathBoxProtocol {
 
     init (_ wantToAccomplish: @escaping (@escaping (Result<Content, Failure>) -> Void) -> Void) {
         wantToAccomplish { result in
-            self.lock.do {
+            self.lock.atomicAction {
                 guard self.result == nil else { return }
                 self.result = result
 
@@ -34,7 +34,7 @@ final class FutureBox<Content, Failure: Error>: KeyPathBoxProtocol {
             return
         }
 
-        self.lock.do {
+        self.lock.atomicAction {
             self.watingQueue.append(complete)
         }
     }
@@ -76,8 +76,8 @@ final class FutureBox<Content, Failure: Error>: KeyPathBoxProtocol {
     }
 }
 
-extension FutureBox: SafeArrayProtocol where Content: SafeArrayProtocol {
-    subscript(maybeInBound index: Int) -> Content.Element? {
+extension FutureBox: IndexReferenceble where Content: IndexReferenceble {
+    subscript(maybeInBound index: Content.Index) -> Content.Element? {
         get {
             guard let result = self.result else { return nil }
 

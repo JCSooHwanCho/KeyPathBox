@@ -9,7 +9,7 @@
 import Foundation
 
 extension NSLocking {
-    func `do`(_ action: ()->Void) {
+    func atomicAction(_ action: ()->Void) {
         self.lock()
         action()
         self.unlock()

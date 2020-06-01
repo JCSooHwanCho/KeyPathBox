@@ -10,10 +10,10 @@
 		4233931A248346A00014F510 /* KeyPathBox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42339310248346A00014F510 /* KeyPathBox.framework */; };
 		4233931F248346A00014F510 /* KeyPathBoxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4233931E248346A00014F510 /* KeyPathBoxTests.swift */; };
 		42339321248346A10014F510 /* KeyPathBox.h in Headers */ = {isa = PBXBuildFile; fileRef = 42339313248346A00014F510 /* KeyPathBox.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		42339331248346F90014F510 /* SafeArrayProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42339330248346F90014F510 /* SafeArrayProtocol.swift */; };
+		42339331248346F90014F510 /* IndexReferenceble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42339330248346F90014F510 /* IndexReferenceble.swift */; };
 		42339334248347240014F510 /* KeyPathBoxProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42339333248347240014F510 /* KeyPathBoxProtocol.swift */; };
 		423393372483475E0014F510 /* FutureBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423393362483475E0014F510 /* FutureBox.swift */; };
-		4233933A248347B60014F510 /* NSRecursiveLock+do.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42339339248347B60014F510 /* NSRecursiveLock+do.swift */; };
+		4233933A248347B60014F510 /* NSRecursiveLock+atomicAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42339339248347B60014F510 /* NSRecursiveLock+atomicAction.swift */; };
 		4233933C2483ED050014F510 /* TestBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4233933B2483ED050014F510 /* TestBox.swift */; };
 		4233933E2483ED720014F510 /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4233933D2483ED720014F510 /* TestError.swift */; };
 		423393402483F2D60014F510 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 4233933F2483F2D60014F510 /* .gitignore */; };
@@ -36,10 +36,10 @@
 		42339319248346A00014F510 /* KeyPathBoxTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KeyPathBoxTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4233931E248346A00014F510 /* KeyPathBoxTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPathBoxTests.swift; sourceTree = "<group>"; };
 		42339320248346A10014F510 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		42339330248346F90014F510 /* SafeArrayProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeArrayProtocol.swift; sourceTree = "<group>"; };
+		42339330248346F90014F510 /* IndexReferenceble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexReferenceble.swift; sourceTree = "<group>"; };
 		42339333248347240014F510 /* KeyPathBoxProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPathBoxProtocol.swift; sourceTree = "<group>"; };
 		423393362483475E0014F510 /* FutureBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureBox.swift; sourceTree = "<group>"; };
-		42339339248347B60014F510 /* NSRecursiveLock+do.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSRecursiveLock+do.swift"; sourceTree = "<group>"; };
+		42339339248347B60014F510 /* NSRecursiveLock+atomicAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSRecursiveLock+atomicAction.swift"; sourceTree = "<group>"; };
 		4233933B2483ED050014F510 /* TestBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestBox.swift; sourceTree = "<group>"; };
 		4233933D2483ED720014F510 /* TestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
 		4233933F2483F2D60014F510 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -109,7 +109,7 @@
 		423393322483470A0014F510 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
-				42339330248346F90014F510 /* SafeArrayProtocol.swift */,
+				42339330248346F90014F510 /* IndexReferenceble.swift */,
 				42339333248347240014F510 /* KeyPathBoxProtocol.swift */,
 			);
 			path = Protocol;
@@ -126,7 +126,7 @@
 		423393382483477B0014F510 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				42339339248347B60014F510 /* NSRecursiveLock+do.swift */,
+				42339339248347B60014F510 /* NSRecursiveLock+atomicAction.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -244,8 +244,8 @@
 			files = (
 				423393372483475E0014F510 /* FutureBox.swift in Sources */,
 				42339334248347240014F510 /* KeyPathBoxProtocol.swift in Sources */,
-				42339331248346F90014F510 /* SafeArrayProtocol.swift in Sources */,
-				4233933A248347B60014F510 /* NSRecursiveLock+do.swift in Sources */,
+				42339331248346F90014F510 /* IndexReferenceble.swift in Sources */,
+				4233933A248347B60014F510 /* NSRecursiveLock+atomicAction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

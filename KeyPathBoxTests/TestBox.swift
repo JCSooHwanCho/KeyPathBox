@@ -8,7 +8,7 @@
 
 @testable import KeyPathBox
 
-struct TestBox: SafeArrayProtocol, Equatable {
+struct TestBox: IndexReferenceble, Equatable {
     subscript(maybeInBound index: Int) -> Int? {
         get {
             if index == 0 {
@@ -48,7 +48,7 @@ struct TestBox: SafeArrayProtocol, Equatable {
     let immutable: String = "immutable"
 }
 
-struct TestOptionalBox: SafeArrayProtocol {
+struct TestOptionalBox: IndexReferenceble {
     subscript(maybeInBound index: Int) -> Int?? {
         get {
             if index == 0 {
