@@ -8,7 +8,7 @@
 
 @testable import KeyPathBox
 
-struct TestModifiable: IndexModifiable, Equatable {
+struct TestModifiable: Equatable {
     subscript(maybeInBound index: Int) -> Int? {
         get {
             if index == 0 {
@@ -49,7 +49,7 @@ struct TestModifiable: IndexModifiable, Equatable {
     let immutable: String = "immutable"
 }
 
-struct TestOptionalModifiable: IndexModifiable {
+struct TestOptionalModifiable {
     subscript(maybeInBound index: Int) -> Int?? {
         get {
             if index == 0 {
@@ -68,8 +68,8 @@ struct TestOptionalModifiable: IndexModifiable {
         }
 
         set(newValue) {
-            
-            if newValue == nil { return }
+
+            if newValue == Int??.none { return }
             let unwrapped = newValue.unsafelyUnwrapped
 
             if index == 0 {
@@ -91,7 +91,7 @@ struct TestOptionalModifiable: IndexModifiable {
     var three: Int? = 3
 }
 
-struct TestReferenceable: IndexReferenceable, Equatable {
+struct TestReferenceable: Equatable {
     subscript(maybeInBound index: Int) -> Int? {
         get {
             if index == 0 {
