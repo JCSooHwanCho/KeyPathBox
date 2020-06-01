@@ -9,11 +9,11 @@
 import XCTest
 @testable import KeyPathBox
 
-class KeyPathBoxTests: XCTestCase {
+class FutureBoxTest: XCTestCase {
 
     func testInitializingSuccess() throws {
-        let futureBox = FutureBox<TestBox, Error> { complete in
-            complete(.success(TestBox()))
+        let futureBox = FutureBox<TestModifiable, Error> { complete in
+            complete(.success(TestModifiable()))
         }
 
         XCTAssertTrue(futureBox[maybeInBound: 0] == 1)
@@ -23,7 +23,7 @@ class KeyPathBoxTests: XCTestCase {
     }
 
     func testInitializingFail() throws {
-        let futureBox = FutureBox<TestBox, Error> { complete in
+        let futureBox = FutureBox<TestModifiable, Error> { complete in
             complete(.failure(KeyPathBoxTestError.initializingError))
         }
 
@@ -35,8 +35,8 @@ class KeyPathBoxTests: XCTestCase {
 
     func testValueChangeSuccess() throws {
 
-        let futureBox = FutureBox<TestBox, Error> { complete in
-            complete(.success(TestBox()))
+        let futureBox = FutureBox<TestModifiable, Error> { complete in
+            complete(.success(TestModifiable()))
         }
 
         futureBox[maybeInBound: 1][keyPath: \.self] = 4
@@ -47,7 +47,7 @@ class KeyPathBoxTests: XCTestCase {
     }
 
     func testValueChangeFailCausedInitializingFail() throws {
-        let futureBox = FutureBox<TestBox, Error> { complete in
+        let futureBox = FutureBox<TestModifiable, Error> { complete in
             complete(.failure(KeyPathBoxTestError.initializingError))
         }
 
@@ -59,8 +59,8 @@ class KeyPathBoxTests: XCTestCase {
     }
 
     func testValueChangeFailCausedOutOfRange() throws {
-        let futureBox = FutureBox<TestBox, Error> { complete in
-            complete(.success(TestBox()))
+        let futureBox = FutureBox<TestModifiable, Error> { complete in
+            complete(.success(TestModifiable()))
         }
 
         futureBox[maybeInBound: 1][keyPath: \.self] = nil
@@ -69,8 +69,8 @@ class KeyPathBoxTests: XCTestCase {
     }
 
     func testOptionalBoxChangeSuccess() throws {
-        let futureBox = FutureBox<TestBox, Error> { complete in
-            complete(.success(TestBox()))
+        let futureBox = FutureBox<TestModifiable, Error> { complete in
+            complete(.success(TestModifiable()))
         }
 
         futureBox[maybeInBound: 1][keyPath: \.self] = 4
@@ -79,8 +79,8 @@ class KeyPathBoxTests: XCTestCase {
     }
 
     func testOptionalBoxChangeFail() throws {
-        let futureBox = FutureBox<TestBox, Error> { complete in
-            complete(.success(TestBox()))
+        let futureBox = FutureBox<TestModifiable, Error> { complete in
+            complete(.success(TestModifiable()))
         }
 
         futureBox[maybeInBound: 1][keyPath: \.self] = nil
@@ -89,8 +89,8 @@ class KeyPathBoxTests: XCTestCase {
     }
 
     func testBoxChangeIndexOutOfRange() throws {
-        let futureBox = FutureBox<TestBox, Error> { complete in
-            complete(.success(TestBox()))
+        let futureBox = FutureBox<TestModifiable, Error> { complete in
+            complete(.success(TestModifiable()))
         }
 
         let originalBox = futureBox[innerKeyPath: \.self]
@@ -101,9 +101,9 @@ class KeyPathBoxTests: XCTestCase {
     }
 
     func testFutureBoxInitializingOnBackgroundSuccess() throws {
-        let futureBox = FutureBox<TestBox, Error> { complete in
+        let futureBox = FutureBox<TestModifiable, Error> { complete in
             DispatchQueue.global().asyncAfter(deadline: .now()+2) {
-                complete(.success(TestBox()))
+                complete(.success(TestModifiable()))
             }
         }
 
@@ -123,7 +123,7 @@ class KeyPathBoxTests: XCTestCase {
     }
 
     func testFutureBoxInitializingOnBackgroundFail() throws {
-        let futureBox = FutureBox<TestBox, Error> { complete in
+        let futureBox = FutureBox<TestModifiable, Error> { complete in
             DispatchQueue.global().asyncAfter(deadline: .now()+2) {
                 complete(.failure(KeyPathBoxTestError.initializingError))
             }
@@ -145,9 +145,9 @@ class KeyPathBoxTests: XCTestCase {
     }
 
     func testFutureBoxInitializingOnBackgroundInitializingAfterSuccess() throws {
-        let futureBox = FutureBox<TestBox, Error> { complete in
+        let futureBox = FutureBox<TestModifiable, Error> { complete in
             DispatchQueue.global().asyncAfter(deadline: .now()+2) {
-                complete(.success(TestBox()))
+                complete(.success(TestModifiable()))
             }
         }
 
@@ -165,7 +165,7 @@ class KeyPathBoxTests: XCTestCase {
     }
 
     func testFutureBoxReferenceWithoutInitialization() throws {
-        let futureBox = FutureBox<TestBox, Error> { _ in
+        let futureBox = FutureBox<TestModifiable, Error> { _ in
 
         }
 
@@ -177,7 +177,7 @@ class KeyPathBoxTests: XCTestCase {
     }
 
     func testFutureBoxChangeValueWithoutInitialization() throws {
-        let futureBox = FutureBox<TestBox, Error> { _ in
+        let futureBox = FutureBox<TestModifiable, Error> { _ in
 
         }
 
@@ -185,5 +185,39 @@ class KeyPathBoxTests: XCTestCase {
 
         XCTAssertTrue(futureBox[innerKeyPath: \.self] == nil)
         XCTAssertTrue(futureBox[maybeInBound: 1] == nil)
+    }
+
+    func testFutureBoxReferenceableInitializationSuccess() throws {
+        let futureBox = FutureBox<TestReferenceable, Error> { complete in
+            complete(.success(TestReferenceable()))
+        }
+
+        XCTAssertTrue(futureBox[innerKeyPath: \.self] != nil)
+    }
+
+    func testFutureBoxReferenceableInitializationFailure() throws {
+        let futureBox = FutureBox<TestReferenceable, Error> { complete in
+            complete(.failure(KeyPathBoxTestError.initializingError))
+        }
+
+        XCTAssertTrue(futureBox[innerKeyPath: \.self] == nil)
+    }
+
+    func testFutureBoxReferenceableReferSuccess() throws {
+        let futureBox = FutureBox<TestReferenceable, Error> { complete in
+            complete(.success(TestReferenceable()))
+        }
+
+        XCTAssertTrue(futureBox[maybeInBound: 0] == 1)
+        XCTAssertTrue(futureBox[innerKeyPath: \.self]?[maybeInBound: 0] == 1)
+    }
+
+    func testFutureBoxReferenceableReferSuccessFailure() throws {
+        let futureBox = FutureBox<TestReferenceable, Error> { complete in
+            complete(.failure(KeyPathBoxTestError.initializingError))
+        }
+
+        XCTAssertTrue(futureBox[maybeInBound: 0] == nil)
+        XCTAssertTrue(futureBox[innerKeyPath: \.self]?[maybeInBound: 0] == nil)
     }
 }
