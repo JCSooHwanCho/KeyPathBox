@@ -8,7 +8,7 @@
 
 @testable import KeyPathBox
 
-struct TestBox: IndexReferenceble, Equatable {
+struct TestBox: IndexReferenceable, Equatable {
     subscript(maybeInBound index: Int) -> Int? {
         get {
             if index == 0 {
@@ -48,7 +48,7 @@ struct TestBox: IndexReferenceble, Equatable {
     let immutable: String = "immutable"
 }
 
-struct TestOptionalBox: IndexReferenceble {
+struct TestOptionalBox: IndexReferenceable {
     subscript(maybeInBound index: Int) -> Int?? {
         get {
             if index == 0 {

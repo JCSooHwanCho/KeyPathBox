@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol IndexReferenceble {
+protocol IndexReferenceable {
     associatedtype Element
     associatedtype Index
     subscript(maybeInBound index: Index) -> Self.Element? { get set }

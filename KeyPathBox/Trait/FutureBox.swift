@@ -76,7 +76,7 @@ final class FutureBox<Content, Failure: Error>: KeyPathBoxProtocol {
     }
 }
 
-extension FutureBox: IndexReferenceble where Content: IndexReferenceble {
+extension FutureBox: IndexReferenceable where Content: IndexReferenceable {
     subscript(maybeInBound index: Content.Index) -> Content.Element? {
         get {
             guard let result = self.result else { return nil }
