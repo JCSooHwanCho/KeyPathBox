@@ -109,7 +109,7 @@ class FutureBoxTest: XCTestCase {
 
         let expectation = XCTestExpectation(description: "futureBoxInitializing")
 
-        futureBox.initialize { result in
+        futureBox.sink { result in
 
             switch result {
             case .success:
@@ -131,7 +131,7 @@ class FutureBoxTest: XCTestCase {
 
         let expectation = XCTestExpectation(description: "futureBoxInitializing")
 
-        futureBox.initialize { result in
+        futureBox.sink { result in
 
             switch result {
             case .success:
@@ -153,13 +153,13 @@ class FutureBoxTest: XCTestCase {
 
         let expectation = XCTestExpectation(description: "futureBoxInitializing")
 
-        futureBox.initialize { _ in
+        futureBox.sink { _ in
             expectation.fulfill()
         }
 
         wait(for: [expectation], timeout: 5)
 
-        futureBox.initialize { _ in
+        futureBox.sink { _ in
             XCTAssertTrue(Thread.isMainThread) 
         }
     }

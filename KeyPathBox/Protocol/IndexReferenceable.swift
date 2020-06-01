@@ -8,13 +8,13 @@
 
 import Foundation
 
-protocol IndexReferenceable {
+public protocol IndexReferenceable {
     associatedtype Element
     associatedtype Index
     subscript(maybeInBound index: Index) -> Self.Element? { get }
 }
 
-protocol IndexModifiable {
+public protocol IndexModifiable {
     associatedtype Element
     associatedtype Index
     subscript(maybeInBound index: Index) -> Self.Element? { get set }

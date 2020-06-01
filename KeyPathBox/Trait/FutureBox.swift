@@ -8,12 +8,12 @@
 
 import Foundation
 
-final class FutureBox<Content, Failure: Error>: KeyPathBoxProtocol {
+public final class FutureBox<Content, Failure: Error>: KeyPathBoxProtocol {
     private var result: Result<Content,Failure>?
     private let lock = NSRecursiveLock()
     private var watingQueue: [(Result<Content,Failure>) -> Void] = []
 
-    init (_ wantToAccomplish: @escaping (@escaping (Result<Content, Failure>) -> Void) -> Void) {
+    public init (_ wantToAccomplish: @escaping (@escaping (Result<Content, Failure>) -> Void) -> Void) {
         wantToAccomplish { result in
             self.lock.atomicAction {
                 guard self.result == nil else { return }
@@ -28,7 +28,7 @@ final class FutureBox<Content, Failure: Error>: KeyPathBoxProtocol {
         }
     }
 
-    func initialize(_ complete: @escaping (Result<Content, Failure>) -> Void) {
+    public func sink(_ complete: @escaping (Result<Content, Failure>) -> Void) {
         if let result = self.result {
             complete(result)
             return
@@ -39,7 +39,7 @@ final class FutureBox<Content, Failure: Error>: KeyPathBoxProtocol {
         }
     }
 
-    subscript<Value>(innerKeyPath keyPath: KeyPath<Content, Value>) -> Value? {
+    public subscript<Value>(innerKeyPath keyPath: KeyPath<Content, Value>) -> Value? {
         guard let result = self.result else { return nil }
 
         switch result {
@@ -50,7 +50,7 @@ final class FutureBox<Content, Failure: Error>: KeyPathBoxProtocol {
         }
     }
 
-    subscript<Value>(innerKeyPath keyPath: WritableKeyPath<Content, Value>) -> Value? {
+    public subscript<Value>(innerKeyPath keyPath: WritableKeyPath<Content, Value>) -> Value? {
         get {
             guard let result = self.result else { return nil }
 
@@ -77,7 +77,7 @@ final class FutureBox<Content, Failure: Error>: KeyPathBoxProtocol {
 }
 
 extension FutureBox: IndexModifiable where Content: IndexModifiable {
-    subscript(maybeInBound index: Content.Index) -> Content.Element? {
+    public subscript(maybeInBound index: Content.Index) -> Content.Element? {
         get {
             guard let result = self.result else { return nil }
 
@@ -103,7 +103,7 @@ extension FutureBox: IndexModifiable where Content: IndexModifiable {
 }
 
 extension FutureBox: IndexReferenceable where Content: IndexReferenceable {
-    subscript(maybeInBound index: Content.Index) -> Content.Element? {
+    public subscript(maybeInBound index: Content.Index) -> Content.Element? {
         guard let result = self.result else { return nil }
 
         switch result {
