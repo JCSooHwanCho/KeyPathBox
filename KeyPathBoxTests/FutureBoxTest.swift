@@ -69,8 +69,8 @@ class FutureBoxTest: XCTestCase {
     }
 
     func testOptionalBoxChangeSuccess() throws {
-        let futureBox = FutureBox<TestModifiable, Error> { complete in
-            complete(.success(TestModifiable()))
+        let futureBox = FutureBox<TestOptionalModifiable, Error> { complete in
+            complete(.success(TestOptionalModifiable()))
         }
 
         futureBox[maybeInBound: 1][keyPath: \.self] = 4
@@ -79,13 +79,13 @@ class FutureBoxTest: XCTestCase {
     }
 
     func testOptionalBoxChangeFail() throws {
-        let futureBox = FutureBox<TestModifiable, Error> { complete in
-            complete(.success(TestModifiable()))
+        let futureBox = FutureBox<TestOptionalModifiable, Error> { complete in
+            complete(.success(TestOptionalModifiable()))
         }
 
-        futureBox[maybeInBound: 1][keyPath: \.self] = nil
+        futureBox[maybeInBound: 1]?[keyPath: \.self] = nil
 
-        XCTAssertFalse(futureBox[maybeInBound: 1][keyPath: \.self] == nil)
+        XCTAssertTrue(futureBox[maybeInBound: 1]?[keyPath: \.self] == nil)
     }
 
     func testBoxChangeIndexOutOfRange() throws {

@@ -27,17 +27,18 @@ struct TestModifiable: IndexModifiable, Equatable {
         }
         set(newValue) {
 
-            guard let newValue = newValue else { return }
+            if newValue == nil { return }
+            let unwrapped = newValue.unsafelyUnwrapped
             if index == 0 {
-                one = newValue
+                one = unwrapped
             }
 
             if index == 1 {
-                two = newValue
+                two = unwrapped
             }
 
             if index == 2 {
-                three = newValue
+                three = unwrapped
             }
         }
     }
@@ -67,18 +68,20 @@ struct TestOptionalModifiable: IndexModifiable {
         }
 
         set(newValue) {
+            
+            if newValue == nil { return }
+            let unwrapped = newValue.unsafelyUnwrapped
 
-            guard let newValue = newValue else { return }
             if index == 0 {
-                one = newValue
+                one = unwrapped
             }
 
             if index == 1 {
-                two = newValue
+                two = unwrapped
             }
 
             if index == 2 {
-                three = newValue
+                three = unwrapped
             }
         }
     }
