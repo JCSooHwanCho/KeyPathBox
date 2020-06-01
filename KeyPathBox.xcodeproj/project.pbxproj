@@ -17,6 +17,7 @@
 		4233933C2483ED050014F510 /* TestModifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4233933B2483ED050014F510 /* TestModifiable.swift */; };
 		4233933E2483ED720014F510 /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4233933D2483ED720014F510 /* TestError.swift */; };
 		423393402483F2D60014F510 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 4233933F2483F2D60014F510 /* .gitignore */; };
+		42ECE1C82485288B000F1CE4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 42ECE1C72485288B000F1CE4 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +44,7 @@
 		4233933B2483ED050014F510 /* TestModifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModifiable.swift; sourceTree = "<group>"; };
 		4233933D2483ED720014F510 /* TestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
 		4233933F2483F2D60014F510 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		42ECE1C72485288B000F1CE4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 		42339306248346A00014F510 = {
 			isa = PBXGroup;
 			children = (
+				42ECE1C72485288B000F1CE4 /* README.md */,
 				4233933F2483F2D60014F510 /* .gitignore */,
 				42339312248346A00014F510 /* KeyPathBox */,
 				4233931D248346A00014F510 /* KeyPathBoxTests */,
@@ -224,6 +227,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42ECE1C82485288B000F1CE4 /* README.md in Resources */,
 				423393402483F2D60014F510 /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
