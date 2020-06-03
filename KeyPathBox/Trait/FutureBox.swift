@@ -52,26 +52,30 @@ public final class FutureBox<Content, Failure: Error>: KeyPathBoxProtocol {
 
     public subscript<Value>(innerKeyPath keyPath: WritableKeyPath<Content, Value>) -> Value? {
         get {
-            guard let result = self.result else { return nil }
+            self.lock.atomicRefer {
+                guard let result = self.result else { return nil }
 
-            switch result {
-            case let .success(box):
-                return box[keyPath: keyPath]
-            case .failure:
-                return nil
+                switch result {
+                case let .success(box):
+                    return box[keyPath: keyPath]
+                case .failure:
+                    return nil
+                }
             }
         }
         set {
-            guard let result = self.result,
-                let newValue = newValue else { return }
+            self.lock.atomicAction {
+                guard let result = self.result,
+                    let newValue = newValue else { return }
 
-             switch result {
-             case var .success(box):
-                box[keyPath: keyPath] = newValue
-                self.result = .success(box)
-             case .failure:
-                 return
-             }
+                 switch result {
+                 case var .success(box):
+                    box[keyPath: keyPath] = newValue
+                    self.result = .success(box)
+                 case .failure:
+                     return
+                 }
+            }
         }
     }
 }
