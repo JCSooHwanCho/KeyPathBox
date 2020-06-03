@@ -63,6 +63,7 @@ Pod::Spec.new do |spec|
   #
 
   #  When using multiple platforms
+  spec.swift_version = "4.0"
   spec.ios.deployment_target = "8.0"
   spec.osx.deployment_target = "10.9"
   spec.watchos.deployment_target = "3.0"
