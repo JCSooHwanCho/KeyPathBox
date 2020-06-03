@@ -8,7 +8,7 @@
 
 @testable import KeyPathBox
 
-struct TestModifiable: IndexModifiable, Equatable {
+struct TestModifiable: Equatable {
     subscript(maybeInBound index: Int) -> Int? {
         get {
             if index == 0 {
@@ -27,17 +27,18 @@ struct TestModifiable: IndexModifiable, Equatable {
         }
         set(newValue) {
 
-            guard let newValue = newValue else { return }
+            if newValue == nil { return }
+            let unwrapped = newValue.unsafelyUnwrapped
             if index == 0 {
-                one = newValue
+                one = unwrapped
             }
 
             if index == 1 {
-                two = newValue
+                two = unwrapped
             }
 
             if index == 2 {
-                three = newValue
+                three = unwrapped
             }
         }
     }
@@ -48,7 +49,7 @@ struct TestModifiable: IndexModifiable, Equatable {
     let immutable: String = "immutable"
 }
 
-struct TestOptionalModifiable: IndexModifiable {
+struct TestOptionalModifiable {
     subscript(maybeInBound index: Int) -> Int?? {
         get {
             if index == 0 {
@@ -68,17 +69,19 @@ struct TestOptionalModifiable: IndexModifiable {
 
         set(newValue) {
 
-            guard let newValue = newValue else { return }
+            if newValue == Int??.none { return }
+            let unwrapped = newValue.unsafelyUnwrapped
+
             if index == 0 {
-                one = newValue
+                one = unwrapped
             }
 
             if index == 1 {
-                two = newValue
+                two = unwrapped
             }
 
             if index == 2 {
-                three = newValue
+                three = unwrapped
             }
         }
     }
@@ -88,7 +91,7 @@ struct TestOptionalModifiable: IndexModifiable {
     var three: Int? = 3
 }
 
-struct TestReferenceable: IndexReferenceable, Equatable {
+struct TestReferenceable: Equatable {
     subscript(maybeInBound index: Int) -> Int? {
         get {
             if index == 0 {

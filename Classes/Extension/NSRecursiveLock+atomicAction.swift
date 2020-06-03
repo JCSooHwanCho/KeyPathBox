@@ -14,4 +14,10 @@ extension NSLocking {
         action()
         self.unlock()
     }
+
+    func atomicRefer<Value>(_ refer: () -> Value) -> Value{
+        defer { self.unlock() }
+        self.lock()
+        return refer()
+    }
 }

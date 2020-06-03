@@ -9,7 +9,7 @@
 import Foundation
 
 
-protocol KeyPathBoxProtocol {
+public protocol KeyPathBoxProtocol {
     associatedtype Content
 
     subscript<Value>(innerKeyPath keyPath: WritableKeyPath<Content, Value>) -> Value? { get set }
