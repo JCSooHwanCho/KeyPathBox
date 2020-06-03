@@ -3,7 +3,7 @@ Wrapper of Object for adding Some Capability.
 
 Now I provide FutureBox for Asynchronous Initialization of Object and Reference & Modification of that Object.
 
-## FututeBox
+## FutureBox
 
 FutureBox is inspired by Combine's *Future*. It adds feature to refer and modify initialized object itself in Box.
 
