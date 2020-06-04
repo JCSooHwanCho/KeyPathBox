@@ -43,6 +43,21 @@ futureBox.sink { result in
 }
 ```
 
+you can modify object in the box. Sinking afer modification will get modified result
+
+```swift
+// modifying
+futureBox[innerKeyPath: \.variableProperty] = ...
+
+futureBox.sink { result in // this will get modifed Object Immidiately
+    switch result {
+    case .success(let largeOject): 
+        // use object
+    case .failure(let error):
+        //user error
+    }
+}
+```
 ## Requirement
 
 *  Xcode 10.X and later
