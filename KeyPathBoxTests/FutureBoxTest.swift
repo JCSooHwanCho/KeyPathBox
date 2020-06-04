@@ -230,4 +230,58 @@ class FutureBoxTest: XCTestCase {
         XCTAssertTrue(futureBox[innerKeyPath: \.[maybeInBound: 0]] == nil)
         XCTAssertTrue(futureBox[innerKeyPath: \.self]?[maybeInBound: 0] == nil)
     }
+
+    func testFuteBoxMapSuccess() throws {
+        let futureBox = FutureBox<TestModifiable, Error> { complete in
+            DispatchQueue.global().asyncAfter(deadline: .now()+2) {
+                complete(.success(TestModifiable()))
+            }
+        }
+
+        let mappedFutureBox = futureBox.map { $0.one + $0.two }
+
+        let expectation = XCTestExpectation(description: "futureBoxInitializing")
+
+        mappedFutureBox.sink { result in
+
+            switch result {
+            case .success:
+                expectation.fulfill()
+            case .failure:
+                XCTFail()
+            }
+        }
+
+        wait(for: [expectation], timeout: 5)
+
+        XCTAssertTrue(futureBox[innerKeyPath: \.self] == TestModifiable())
+        XCTAssertTrue(mappedFutureBox[innerKeyPath: \.self] == 3)
+    }
+
+    func testFutureBoxMapError() throws {
+        let futureBox = FutureBox<TestModifiable, Error> { complete in
+            DispatchQueue.global().asyncAfter(deadline: .now()+2) {
+                complete(.failure(KeyPathBoxTestError.initializingError))
+            }
+        }
+
+        let mappedFutureBox = futureBox.map { $0.one + $0.two }
+
+        let expectation = XCTestExpectation(description: "futureBoxInitializing")
+
+        mappedFutureBox.sink { result in
+
+            switch result {
+            case .success:
+                XCTFail()
+            case .failure:
+                expectation.fulfill()
+            }
+        }
+
+        wait(for: [expectation], timeout: 5)
+
+        XCTAssertTrue(futureBox[innerKeyPath: \.self] == nil)
+        XCTAssertTrue(mappedFutureBox[innerKeyPath: \.self] == nil)
+    }
 }

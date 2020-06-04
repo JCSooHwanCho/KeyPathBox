@@ -79,3 +79,18 @@ public final class FutureBox<Content, Failure: Error>: KeyPathBoxProtocol {
         }
     }
 }
+
+extension FutureBox {
+    func map<T> (_ transform: @escaping (Content) -> T) -> FutureBox<T,Failure> {
+        return FutureBox<T, Failure> { complete in
+            self.sink { result in
+                switch result {
+                case let .success(content):
+                    complete(.success(transform(content)))
+                case let .failure(failure):
+                    complete(.failure(failure))
+                }
+            }
+        }
+    }
+}
