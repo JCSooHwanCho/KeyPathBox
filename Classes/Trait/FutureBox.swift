@@ -93,4 +93,14 @@ extension FutureBox {
             }
         }
     }
+
+    func receive(on queue: DispatchQueue) -> FutureBox<Content,Failure> {
+        return FutureBox<Content, Failure> { complete in
+            self.sink { result in
+                queue.async {
+                    complete(result)
+                }
+            }
+        }
+    }
 }
