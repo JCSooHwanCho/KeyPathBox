@@ -284,4 +284,35 @@ class FutureBoxTest: XCTestCase {
         XCTAssertTrue(futureBox[innerKeyPath: \.self] == nil)
         XCTAssertTrue(mappedFutureBox[innerKeyPath: \.self] == nil)
     }
+
+    func testFutureBoxReceiveOnMainThread() throws {
+        let futureBox = FutureBox<TestModifiable, Error> { complete in
+            DispatchQueue.global().asyncAfter(deadline: .now()+2) {
+                complete(.success(TestModifiable()))
+            }
+        }
+
+        let expectation = XCTestExpectation(description: "futureBoxInitializing")
+
+        futureBox
+            .receive(on: .main)
+            .sink {  _ in
+                expectation.fulfill()
+                XCTAssertTrue(Thread.isMainThread)
+        }
+
+        wait(for: [expectation], timeout: 5)
+    }
+
+    func testFutureBoxReceiveOnBackgroundThread() throws {
+        let futureBox = FutureBox<TestModifiable, Error> { complete in
+            complete(.success(TestModifiable()))
+        }
+
+        futureBox
+            .receive(on: .global())
+            .sink {  _ in
+                XCTAssertFalse(Thread.isMainThread)
+        }
+    }
 }

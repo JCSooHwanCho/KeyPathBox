@@ -21,7 +21,7 @@ As Future does, It could be initlaized on background thread. It can be used to i
 
 ```swift
 
-// It will be initialized on current thread
+// It will be initialized on background thread
 let futureBox = FutureBox<SomeLargeObject, SomeError> { complete in
     DispatchQueue.global().async {
         complete(.success(SomeLargeObject()))
@@ -32,8 +32,9 @@ let futureBox = FutureBox<SomeLargeObject, SomeError> { complete in
 futureBox[innerKeyPath: \.self] // nil
 
 // waiting for initialization Complete
-
+// 
 futureBox.sink { result in
+    // executed on background thread
     switch result {
     case .success(let largeOject): 
         // use object
@@ -58,6 +59,39 @@ futureBox.sink { result in // this will get modifed Object Immidiately
     }
 }
 ```
+
+or you can change box itself using map operator
+```swift
+let futureBox = FutureBox<SomeObject, SomeError> { complete in
+    complete(.success(SomeObject()))
+}
+
+let anotherFutureBox = futureBox.map { someObject in AnotherObject(someObject) }
+
+futureBox[innerKeyPath: \.self] // Optional(AnotherObject)
+```
+
+you also switch event receiving thread with receive operator
+
+```swift
+let futureBox = FutureBox<SomeLargeObject, SomeError> { complete in
+    DispatchQueue.global().async {
+        complete(.success(SomeLargeObject()))
+    }
+}
+
+futureBox
+    .receive(on: .main) // change current thread to main thread
+    .sink { result in
+        switch result {
+        case .success(let largeOject): 
+            // use object
+        case .failure(let error):
+            //user error
+        }
+    }
+```
+
 ## Requirement
 
 *  Xcode 10.X and later
