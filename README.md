@@ -110,11 +110,6 @@ use_frameworks!
 target 'YOUR_TARGET_NAME' do
     pod 'KeyPathBox'
 end
-
-# RxTest and RxBlocking make the most sense in the context of unit/integration tests
-target 'YOUR_TESTING_TARGET' do
-    pod 'KeyPathBox'
-end
 ```  
 
 Replace YOUR_TARGET_NAME and then, in the Podfile directory, type:
